@@ -11,6 +11,7 @@ const xss = require("xss-clean");
 const hpp = require("hpp");
 const path = require("path");
 const cookieParser = require("cookie-parser");
+const compression = require("compression"); // package to compress responses
 
 // connecting sub-application routes via mounting
 const tourRouter = require("./routes/tourRoutes");
@@ -71,6 +72,9 @@ app.use(
     ],
   })
 );
+
+// 'compression' used to compress responses- be it json or html
+app.use(compression());
 
 // serving static files
 app.use(express.static(`${__dirname}/public`));

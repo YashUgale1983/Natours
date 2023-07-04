@@ -159,7 +159,7 @@ const login = async (email, password) => {
   try {
     const res = await axios({
       method: "POST",
-      url: "http://127.0.0.1:3000/api/v1/users/login", // this calls our API to check if the email and password is correct
+      url: "/api/v1/users/login", // this calls our API to check if the email and password is correct
       data: {
         email,
         password,
@@ -185,7 +185,7 @@ const logout = async () => {
   try {
     const res = await axios({
       method: "GET",
-      url: "http://127.0.0.1:3000/api/v1/users/logout",
+      url: "/api/v1/users/logout",
     });
 
     if (res.data.status === "success") {
@@ -205,8 +205,8 @@ const updateSettings = async (data, type) => {
     // console.log("in updateSettings...");
     const url =
       type === "password"
-        ? "http://127.0.0.1:3000/api/v1/users/updateMyPassword"
-        : "http://127.0.0.1:3000/api/v1/users/updateMe";
+        ? "/api/v1/users/updateMyPassword"
+        : "/api/v1/users/updateMe";
     const res = await axios({
       method: "PATCH",
       url,
@@ -234,7 +234,7 @@ const forgotPassword = async (email) => {
   try {
     const res = await axios({
       method: "POST",
-      url: "http://127.0.0.1:3000/api/v1/users/forgotPassword",
+      url: "/api/v1/users/forgotPassword",
       data: {
         email,
       },
@@ -252,7 +252,7 @@ const resetPassword = async (password, passwordConfirm, resetToken) => {
   try {
     const res = await axios({
       method: "PATCH",
-      url: `http://127.0.0.1:3000/api/v1/users/resetPassword/${resetToken}`,
+      url: `/api/v1/users/resetPassword/${resetToken}`,
       data: {
         password,
         passwordConfirm,
@@ -275,7 +275,7 @@ const signupEmail = async (name, email) => {
   try {
     const res = await axios({
       method: "POST",
-      url: "http://127.0.0.1:3000/api/v1/users/sendOTP",
+      url: "/api/v1/users/sendOTP",
       data: {
         name,
         email,
@@ -299,7 +299,7 @@ const signup = async (data) => {
   try {
     const res = await axios({
       method: "POST",
-      url: "http://127.0.0.1:3000/api/v1/users/signup",
+      url: "/api/v1/users/signup",
       data,
     });
 
@@ -320,7 +320,7 @@ const bookTour = async (tourId) => {
     // 1) Get checkout session from API
     const session = await axios({
       method: "GET",
-      url: `http://127.0.0.1:3000/api/v1/bookings/checkout-session/${tourId}`,
+      url: `/api/v1/bookings/checkout-session/${tourId}`,
     });
 
     // 2) Create checkout form + charge credit card
