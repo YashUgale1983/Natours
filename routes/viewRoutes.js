@@ -6,6 +6,8 @@ const bookingController = require("./../controllers/bookingController");
 
 // Routes for getting the Pug template --->
 
+router.use(viewController.alerts);
+
 // 1) Overview pug
 router.get("/", authController.isLoggedIn, viewController.getOverview);
 

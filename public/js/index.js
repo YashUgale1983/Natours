@@ -147,11 +147,11 @@ function hideAlert() {
 }
 
 // this function is used to display alerts in our own way defined in style.css
-function showAlert(type, msg) {
+function showAlert(type, msg, time = 3) {
   hideAlert();
   const markup = `<div class="alert alert--${type}">${msg}</div>`;
   document.querySelector("body").insertAdjacentHTML("afterbegin", markup);
-  window.setTimeout(hideAlert, 3000);
+  window.setTimeout(hideAlert, time * 1000);
 }
 
 // this function is used for login functionality
@@ -329,3 +329,8 @@ const bookTour = async (tourId) => {
     showAlert("error", err);
   }
 };
+
+const alertMessage = document.querySelector("body").dataset.alert;
+if (alertMessage) {
+  showAlert("success", alertMessage, 7);
+}

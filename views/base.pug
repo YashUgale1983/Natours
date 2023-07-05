@@ -13,7 +13,7 @@ html
             script(src="/js/index.js" defer type="module")
             script(src="https://js.stripe.com/v3/" defer)
         
-    body 
+    body(data-alert=`${alert ? alert: ''}`)
         // Header
         include _header
 
