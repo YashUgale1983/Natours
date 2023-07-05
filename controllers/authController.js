@@ -19,7 +19,7 @@ const signToken = (id) => {
 };
 
 // this is used to create a token and send it. this function is used when logging in, sign up, update password, reset password, etc.
-const createSendToken = (user, statusCode, res) => {
+const createSendToken = (user, statusCode, req, res) => {
   const token = signToken(user._id);
   const cookieOptions = {
     expires: new Date(
@@ -29,7 +29,7 @@ const createSendToken = (user, statusCode, res) => {
     httpOnly: true, // this ensures that cookie is not accessed or modified by the browser
   };
 
-  if (process.env.NODE_ENV === "production") {
+  if (req.secure) {
     cookieOptions.secure = true;
   }
   res.cookie("jwt", token, cookieOptions);
@@ -66,7 +66,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     });
     const url = `${req.protocol}://${req.get("host")}/me`;
     await new Email(newUser, url).sendWelcome();
-    createSendToken(newUser, 201, res);
+    createSendToken(newUser, 201, req, res);
   } else {
     res
       .status(400)
@@ -113,7 +113,7 @@ exports.login = catchAsync(async (req, res, next) => {
   }
 
   //3 if everything is correct, send the token to the client
-  createSendToken(user, 200, res);
+  createSendToken(user, 200, req, res);
 });
 
 // here, we implement a middleware function to log out a user
@@ -299,7 +299,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   user.passwordChangedAt = Date.now() - 1000;
 
   // 4. log the user in and send JWT
-  createSendToken(user, 200, res);
+  createSendToken(user, 200, req, res);
 });
 
 // this is used to allow user to update password
@@ -318,5 +318,5 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   await user.save();
 
   // 4. log user in and then send JWT
-  createSendToken(user, 200, res);
+  createSendToken(user, 200, req, res);
 });
