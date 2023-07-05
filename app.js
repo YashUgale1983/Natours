@@ -12,6 +12,7 @@ const hpp = require("hpp");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const compression = require("compression"); // package to compress responses
+const cors = require("cors"); // package to enable CORS
 
 // connecting sub-application routes via mounting
 const tourRouter = require("./routes/tourRoutes");
@@ -25,6 +26,10 @@ app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
 // Global middleware functions - these should come before any routing as these functions should be called before the request-response cycle ends
+
+// to make Cross Origin Resource Sharing work, we implement cors -->
+app.use(cors()); // by default, only GET and POST is allowed using cors. For other methods like PUT, PATCH, DELETE etc. we use options -->
+app.options("*", cors()); // "*" means cors() will be implemented for all routes defined in out API. We can allow specific routes too.
 
 // Setting Security HTTP Headers using 'helmet' -->
 // 1st Method -
