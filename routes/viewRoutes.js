@@ -7,12 +7,7 @@ const bookingController = require("./../controllers/bookingController");
 // Routes for getting the Pug template --->
 
 // 1) Overview pug
-router.get(
-  "/",
-  bookingController.createBookingCheckout,
-  authController.isLoggedIn,
-  viewController.getOverview
-);
+router.get("/", authController.isLoggedIn, viewController.getOverview);
 
 // 2) Tour pug
 router.get("/tour/:slug", authController.isLoggedIn, viewController.getTour);

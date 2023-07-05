@@ -20,6 +20,7 @@ const userRouter = require("./routes/userRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
 const viewRouter = require("./routes/viewRoutes");
 const bookingRouter = require("./routes/bookingRoutes");
+const bookingController = require("./controllers/bookingController");
 
 // setting view engine. For Natours project, we will be using Pug templates
 app.set("view engine", "pug");
@@ -54,6 +55,13 @@ const limiter = rateLimit({
   message: "too many requests from this IP. try in an hour...",
 });
 app.use("/api", limiter);
+
+// defining this webhook checkout route here because we need the session data returned to be in raw format. once express.json is hit all data is converted to json.
+app.post(
+  "/webhook-checkout",
+  express.raw({ type: "application/json" }),
+  bookingController.webhookCheckout
+);
 
 // body parser ---> reading data from body to req.body
 app.use(express.json({ limit: "10kb" }));
