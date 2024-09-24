@@ -12,7 +12,7 @@
     "start:prod": "NODE_ENV=production nodemon server.js",
     "debug": "ndb server.js"
   },
-  "author": "Yash Ugale",
+  "author": "Yash Ugale and Atharva",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.4.0",

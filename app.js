@@ -30,7 +30,7 @@ app.set("views", path.join(__dirname, "views"));
 
 // to make Cross Origin Resource Sharing work, we implement cors -->
 app.use(cors()); // by default, only GET and POST is allowed using cors. For other methods like PUT, PATCH, DELETE etc. we use options -->
-app.options("*", cors()); // "*" means cors() will be implemented for all routes defined in out API. We can allow specific routes too.
+app.options("*", cors()); // "*" means cors() will be implemented for all routes defined in our API. We can allow specific routes too.
 
 // Setting Security HTTP Headers using 'helmet' -->
 // 1st Method -

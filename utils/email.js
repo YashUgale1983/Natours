@@ -11,7 +11,7 @@ module.exports = class Email {
     (this.to = user.email),
       (this.firstName = user.name.split(" ")[0]),
       (this.url = url),
-      (this.from = `Yash Ugale <${process.env.EMAIL_FROM}>`);
+      (this.from = `Natours <${process.env.EMAIL_FROM}>`);
   }
 
   newTransport() {
@@ -22,7 +22,7 @@ module.exports = class Email {
         new Transport({ apiKey: process.env.SENDINBLUE_API_KEY })
       );
     }
-    // if we are in develop, send mails using mailtrap
+    // if we are in development env, send mails using mailtrap
 
     // here we return the transporter
     return nodemailer.createTransport({
